@@ -130,12 +130,12 @@ Deployment instructions:
 ```
 ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture4.png "")
  
-4. Create an action button on the target object and add the button to the target page layout 
+5. Create an action button on the target object and add the button to the target page layout 
  ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture5.png "")
  ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture6.png "")
  ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture7.png "")
  
  
 
-5. Test 
+6. Test 
 
