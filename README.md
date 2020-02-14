@@ -84,7 +84,7 @@ Deployment instructions:
     </body>
 </apex:page>
 ```
-3. Create	a Lightning Component (aura component, at the time of this writing quick actions are not possible to create in LWC). 
+3. Create a Lightning Component (aura component, at the time of this writing quick actions are not possible to create on LWC). 
   - Open the Salesforce development console and click on File => New => Lightning Component  
   ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture1.png "")
   - Enter a name (this is going to be used by our record action button) 
@@ -106,7 +106,7 @@ Deployment instructions:
 ``` 
 ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture3.png "")
 
-4. Update the Controller (You need to modify line “myviewer.doOpen({'documentsaveFormulaField':'','documentsaveName':'Document.pdf','VFReportPageName':'AccountReport','modalTitle':'Account Report'});” for your report) 
+4. Update the Controller (Modify line “myviewer.doOpen({'documentsaveFormulaField':'','documentsaveName':'Document.pdf','VFReportPageName':'AccountReport','modalTitle':'Account Report'});” for your report) 
   -	Configuration Options: 
     -	documentsaveFormulaField: this is used to dynamically create a name for the save report. The report name is queried from the record you are generating the report from. The value you enter needs to be the field API name on the object you are saving the report to. Example on our account report if I enter Name the saved file name will be the accounts name or you could create a formula field on account that equals the Name plus todays date. (enter a blank value to disable)
     -	documentsaveName: Enter a static name to save the document as. (enter a blank value if using documentsaveFormulaField) 
