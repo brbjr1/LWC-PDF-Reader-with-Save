@@ -10,6 +10,7 @@ b.	Sandbox: https://test.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t
 a.	Example:
 i.	Name: AccountReport
 ii.	Code: 
+```html
 <apex:page standardcontroller="Account"
            title="Test Account Report"
            lightningstylesheets="false"
@@ -78,6 +79,7 @@ ii.	Code:
         </div>
     </body>
 </apex:page>
+```
 3.	Create	a Lightning Component (aura component, At the time of this writing quick actions are not possible to create in LWC). 
 a.	Open the Salesforce development console and click on File => New => Lightning Component
  
