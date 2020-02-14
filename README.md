@@ -27,9 +27,6 @@ Deployment instructions:
             .rpt * {
                 padding: 0;
                 margin: 0;
-                -webkit-box-shadow: none;
-                -ms-box-shadow: none;
-                box-shadow: none;
             }
             .rpt-page {
                 font: 9pt 'Open Sans', Arial, sans-serif;
