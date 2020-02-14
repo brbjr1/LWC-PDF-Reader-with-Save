@@ -1,6 +1,10 @@
 LWC PDF Reader with Save
 Description: This component allows you to create an action button on a Salesforce record that provides the ability to preview a PDF document with save functionality.
 
+![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/sample-animation.gif "")
+
+
+
 Github: https://github.com/brbjr1/LWC-PDF-Reader-with-Save
 
 Deployment instructions: 
