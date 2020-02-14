@@ -4,12 +4,12 @@ Description: This component allows you to create an action button on a Salesforc
 Github: https://github.com/brbjr1/LWC-PDF-Reader-with-Save
 Deployment instructions:
 1.	Install package
-a.	Production: https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t6g000006xy8CAAQ 
-b.	Sandbox: https://test.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t6g000006xy8CAAQ 
+  a.	Production: https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t6g000006xy8CAAQ 
+  b.	Sandbox: https://test.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t6g000006xy8CAAQ 
 2.	Create a visualforce page to generate the PDF document.
-a.	Example:
-i.	Name: AccountReport
-ii.	Code: 
+  a.	Example:
+    i.	Name: AccountReport
+    ii.	Code: 
 ```html
 <apex:page standardcontroller="Account"
            title="Test Account Report"
@@ -81,12 +81,13 @@ ii.	Code:
 </apex:page>
 ```
 3.	Create	a Lightning Component (aura component, At the time of this writing quick actions are not possible to create in LWC). 
-a.	Open the Salesforce development console and click on File => New => Lightning Component
+  a.	Open the Salesforce development console and click on File => New => Lightning Component
  
-b.	Enter a name (this is going to be used by our record action button)
-c.	Check Lightning Record Page and Lightning Quick Action
+  b.	Enter a name (this is going to be used by our record action button)
+  c.	Check Lightning Record Page and Lightning Quick Action
  
-d.	Update the Component markup to:
+  d.	Update the Component markup to:
+```html
 <aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
 	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 	<c:lwcpdfReaderWithSave aura:id="my-viewer" onclose="{!c.handleClose}" showConsoleLogs="false" recordId="{!v.recordId}" />
@@ -97,14 +98,15 @@ d.	Update the Component markup to:
 		</div>
 	</aura:if> 
 </aura:component>
- 
-e.	Update the Controller to 
-i.	You will need to modify line “myviewer.doOpen({'documentsaveFormulaField':'','documentsaveName':'Document.pdf','VFReportPageName':'AccountReport','modalTitle':'Account Report'});” for your report.
-1.	Configuration Options:
-a.	documentsaveFormulaField: this is used to dynamically create a name for the save report. The report name is queried from the record you are generating the report from. The value you enter needs to be the field API name on the object you are saving the report to. Example on our account report if I enter Name the saved file will be the accounts name or I could create a formula field on account that equals the Name plus todays date.
-b.	documentsaveName: Enter a static name to save the document as.
-c.	VFReportPageName: enter the name of the visualforce page that generates the pdf
-d.	modalTitle: enter the name that displays on the top of the preview modal
+``` 
+  e.	Update the Controller to 
+    i.	You will need to modify line “myviewer.doOpen({'documentsaveFormulaField':'','documentsaveName':'Document.pdf','VFReportPageName':'AccountReport','modalTitle':'Account Report'});” for your report.
+  1.	Configuration Options:
+    a.	documentsaveFormulaField: this is used to dynamically create a name for the save report. The report name is queried from the record you are generating the report from. The value you enter needs to be the field API name on the object you are saving the report to. Example on our account report if I enter Name the saved file will be the accounts name or I could create a formula field on account that equals the Name plus todays date.
+    b.	documentsaveName: Enter a static name to save the document as.
+    c.	VFReportPageName: enter the name of the visualforce page that generates the pdf
+    d.	modalTitle: enter the name that displays on the top of the preview modal
+```html    
 ({
 	doInit : function(component, event, helper) {
         window.setTimeout(
@@ -120,6 +122,8 @@ d.	modalTitle: enter the name that displays on the top of the preview modal
 	}
 
 })
+
+```
 
  
 4.	Create an action button of the target object and add the button to the target page layout
