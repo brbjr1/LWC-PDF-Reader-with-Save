@@ -83,8 +83,9 @@ Deployment instructions:
     </body>
 </apex:page>
 ```
-3. Create	a Lightning Component (aura component, At the time of this writing quick actions are not possible to create in LWC). 
+3. Create	a Lightning Component (aura component, at the time of this writing quick actions are not possible to create in LWC). 
   - Open the Salesforce development console and click on File => New => Lightning Component  
+  ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture1.png "")
   - Enter a name (this is going to be used by our record action button) 
   - Check Lightning Record Page and Lightning Quick Action 
   - Update the Component markup to: 
