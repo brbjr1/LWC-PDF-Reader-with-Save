@@ -1,0 +1,68 @@
+<apex:page standardcontroller="Account"
+           title="Test Account Report"
+           lightningstylesheets="false"
+           renderAs="pdf"
+           applybodytag="false">
+    <!--applybodytag="false" is used to make sure that styles are correctly applied to the generated pdf-->
+    <!--standardcontroller="Account" allows getting data from the account object without writing a class-->       
+    <head>
+        <style type="text/css">
+            .rpt * {
+                padding: 0;
+                margin: 0;
+                -webkit-box-shadow: none;
+                -ms-box-shadow: none;
+                box-shadow: none;
+            }
+            .rpt-page {
+                font: 9pt 'Open Sans', Arial, sans-serif;
+                line-height: 1.4em;
+            }
+            .rpt-page-header {
+                overflow: auto;
+            }
+            .rpt-page-header .rpt-header {
+                    width: auto;
+                    margin: 0;
+            }
+            .rpt-page {
+                width: 7.4in;
+                overflow: hidden;
+                margin: .5in;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="rpt">
+            <div class="rpt-page">
+                <div class="rpt-header">
+                    My Test Report
+                </div>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Name:</td>
+                            <td>
+                                <apex:outputText value="{!Account.Name}"/>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Create Date:</td>
+                            <td>
+                                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                                    <apex:param value="{!Account.CreatedDate}" />
+                                </apex:outputtext>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            <!--End rpt-page-->
+            </div>
+        <!--End rpt-->
+        </div>
+    </body>
+</apex:page>
