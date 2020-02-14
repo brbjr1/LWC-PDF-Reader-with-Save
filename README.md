@@ -1,58 +1,129 @@
-# Salesforce App
+LWC PDF Reader with Save
+Description: This component allows you to create an action button on a Salesforce record that provides the ability to preview a PDF document with save functionality.
 
-This guide helps Salesforce developers who are new to Visual Studio Code go from zero to a deployed app using Salesforce Extensions for VS Code and Salesforce CLI.
+Github: https://github.com/brbjr1/LWC-PDF-Reader-with-Save
+Deployment instructions:
+1.	Install package
+a.	Production: https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t6g000006xy8CAAQ 
+b.	Sandbox: https://test.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t6g000006xy8CAAQ 
+2.	Create a visualforce page to generate the PDF document.
+a.	Example:
+i.	Name: AccountReport
+ii.	Code: 
+<apex:page standardcontroller="Account"
+           title="Test Account Report"
+           lightningstylesheets="false"
+           renderAs="pdf"
+           applybodytag="false">
+    <!--applybodytag="false" is used to make sure that styles are correctly applied to the generated pdf-->
+    <!--standardcontroller="Account" allows getting data from the account object without writing a class-->       
+    <head>
+        <style type="text/css">
+            .rpt * {
+                padding: 0;
+                margin: 0;
+                -webkit-box-shadow: none;
+                -ms-box-shadow: none;
+                box-shadow: none;
+            }
+            .rpt-page {
+                font: 9pt 'Open Sans', Arial, sans-serif;
+                line-height: 1.4em;
+            }
+            .rpt-page-header {
+                overflow: auto;
+            }
+            .rpt-page-header .rpt-header {
+                    width: auto;
+                    margin: 0;
+            }
+            .rpt-page {
+                width: 7.4in;
+                overflow: hidden;
+                margin: .5in;
+            }
+        </style>
+    </head>
 
-## Part 1: Choosing a Development Model
+    <body>
+        <div class="rpt">
+            <div class="rpt-page">
+                <div class="rpt-header">
+                    My Test Report
+                </div>
 
-There are two types of developer processes or models supported in Salesforce Extensions for VS Code and Salesforce CLI. These models are explained below. Each model offers pros and cons and is fully supported.
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Name:</td>
+                            <td>
+                                <apex:outputText value="{!Account.Name}"/>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Create Date:</td>
+                            <td>
+                                <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                                    <apex:param value="{!Account.CreatedDate}" />
+                                </apex:outputtext>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-### Package Development Model
+            <!--End rpt-page-->
+            </div>
+        <!--End rpt-->
+        </div>
+    </body>
+</apex:page>
+3.	Create	a Lightning Component (aura component, At the time of this writing quick actions are not possible to create in LWC). 
+a.	Open the Salesforce development console and click on File => New => Lightning Component
+ 
+b.	Enter a name (this is going to be used by our record action button)
+c.	Check Lightning Record Page and Lightning Quick Action
+ 
+d.	Update the Component markup to:
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<c:lwcpdfReaderWithSave aura:id="my-viewer" onclose="{!c.handleClose}" showConsoleLogs="false" recordId="{!v.recordId}" />
+	<aura:attribute name="isLoading" type="Boolean" default="true" />
+	<aura:if isTrue="{!v.isLoading}">
+		<div>
+			<lightning:spinner alternativeText="Loading" size="small" />
+		</div>
+	</aura:if> 
+</aura:component>
+ 
+e.	Update the Controller to 
+i.	You will need to modify line “myviewer.doOpen({'documentsaveFormulaField':'','documentsaveName':'Document.pdf','VFReportPageName':'AccountReport','modalTitle':'Account Report'});” for your report.
+1.	Configuration Options:
+a.	documentsaveFormulaField: this is used to dynamically create a name for the save report. The report name is queried from the record you are generating the report from. The value you enter needs to be the field API name on the object you are saving the report to. Example on our account report if I enter Name the saved file will be the accounts name or I could create a formula field on account that equals the Name plus todays date.
+b.	documentsaveName: Enter a static name to save the document as.
+c.	VFReportPageName: enter the name of the visualforce page that generates the pdf
+d.	modalTitle: enter the name that displays on the top of the preview modal
+({
+	doInit : function(component, event, helper) {
+        window.setTimeout(
+            $A.getCallback(function() {
+				let myviewer = component.find("my-viewer");
+				myviewer.doOpen({'documentsaveFormulaField':'','documentsaveName':'Document.pdf','VFReportPageName':'AccountReport','modalTitle':'Account Report'});
+				component.set("v.isLoading", false);
+			}), 0
+        );
+    },
+	handleClose : function(component, event, helper) {
+		$A.get("e.force:closeQuickAction").fire();  
+	}
 
-The package development model allows you to create self-contained applications or libraries that are deployed to your org as a single package. These packages are typically developed against source-tracked orgs called scratch orgs. This development model is geared toward a more modern type of software development process that uses org source tracking, source control, and continuous integration and deployment.
+})
 
-If you are starting a new project, we recommend that you consider the package development model. To start developing with this model in Visual Studio Code, see [Package Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/package-development-model). For details about the model, see the [Package Development Model](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_dev_model) Trailhead module.
+ 
+4.	Create an action button of the target object and add the button to the target page layout
+ 
+ 
+ 
 
-If you are developing against scratch orgs, use the command `SFDX: Create Project` (VS Code) or `sfdx force:project:create` (Salesforce CLI)  to create your project. If you used another command, you might want to start over with that command.
+5.	Test
 
-When working with source-tracked orgs, use the commands `SFDX: Push Source to Org` (VS Code) or `sfdx force:source:push` (Salesforce CLI) and `SFDX: Pull Source from Org` (VS Code) or `sfdx force:source:pull` (Salesforce CLI). Do not use the `Retrieve` and `Deploy` commands with scratch orgs.
-
-### Org Development Model
-
-The org development model allows you to connect directly to a non-source-tracked org (sandbox, Developer Edition (DE) org, Trailhead Playground, or even a production org) to retrieve and deploy code directly. This model is similar to the type of development you have done in the past using tools such as Force.com IDE or MavensMate.
-
-To start developing with this model in Visual Studio Code, see [Org Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/org-development-model). For details about the model, see the [Org Development Model](https://trailhead.salesforce.com/content/learn/modules/org-development-model) Trailhead module.
-
-If you are developing against non-source-tracked orgs, use the command `SFDX: Create Project with Manifest` (VS Code) or `sfdx force:project:create --manifest` (Salesforce CLI) to create your project. If you used another command, you might want to start over with this command to create a Salesforce DX project.
-
-When working with non-source-tracked orgs, use the commands `SFDX: Deploy Source to Org` (VS Code) or `sfdx force:source:deploy` (Salesforce CLI) and `SFDX: Retrieve Source from Org` (VS Code) or `sfdx force:source:retrieve` (Salesforce CLI). The `Push` and `Pull` commands work only on orgs with source tracking (scratch orgs).
-
-## The `sfdx-project.json` File
-
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-The most important parts of this file for getting started are the `sfdcLoginUrl` and `packageDirectories` properties.
-
-The `sfdcLoginUrl` specifies the default login URL to use when authorizing an org.
-
-The `packageDirectories` filepath tells VS Code and Salesforce CLI where the metadata files for your project are stored. You need at least one package directory set in your file. The default setting is shown below. If you set the value of the `packageDirectories` property called `path` to `force-app`, by default your metadata goes in the `force-app` directory. If you want to change that directory to something like `src`, simply change the `path` value and make sure the directory you’re pointing to exists.
-
-```json
-"packageDirectories" : [
-    {
-      "path": "force-app",
-      "default": true
-    }
-]
-```
-
-## Part 2: Working with Source
-
-For details about developing against scratch orgs, see the [Package Development Model](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_dev_model) module on Trailhead or [Package Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/package-development-model).
-
-For details about developing against orgs that don’t have source tracking, see the [Org Development Model](https://trailhead.salesforce.com/content/learn/modules/org-development-model) module on Trailhead or [Org Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/org-development-model).
-
-## Part 3: Deploying to Production
-
-Don’t deploy your code to production directly from Visual Studio Code. The deploy and retrieve commands do not support transactional operations, which means that a deployment can fail in a partial state. Also, the deploy and retrieve commands don’t run the tests needed for production deployments. The push and pull commands are disabled for orgs that don’t have source tracking, including production orgs.
-
-Deploy your changes to production using [packaging](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_dev2gp.htm) or by [converting your source](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_source.htm#cli_reference_convert) into metadata format and using the [metadata deploy command](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_mdapi.htm#cli_reference_deploy).
