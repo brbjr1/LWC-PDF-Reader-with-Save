@@ -88,6 +88,7 @@ Deployment instructions:
   ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture1.png "")
   - Enter a name (this is going to be used by our record action button) 
   - Check Lightning Record Page and Lightning Quick Action 
+  ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture2.png "")
   - Update the Component markup to: 
 
 ```html
@@ -102,6 +103,8 @@ Deployment instructions:
 	</aura:if> 
 </aura:component>
 ``` 
+![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture3.png "")
+
 4. Update the Controller to  (You will need to modify line “myviewer.doOpen({'documentsaveFormulaField':'','documentsaveName':'Document.pdf','VFReportPageName':'AccountReport','modalTitle':'Account Report'});” for your report) 
   -	Configuration Options: 
     -	documentsaveFormulaField: this is used to dynamically create a name for the save report. The report name is queried from the record you are generating the report from. The value you enter needs to be the field API name on the object you are saving the report to. Example on our account report if I enter Name the saved file will be the accounts name or I could create a formula field on account that equals the Name plus todays date. 
@@ -127,10 +130,12 @@ Deployment instructions:
 })
 
 ```
-
+![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture4.png "")
  
 4. Create an action button of the target object and add the button to the target page layout 
- 
+ ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture5.png "")
+ ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture6.png "")
+ ![alt text](https://github.com/brbjr1/LWC-PDF-Reader-with-Save/raw/master/images/Picture7.png "")
  
  
 
