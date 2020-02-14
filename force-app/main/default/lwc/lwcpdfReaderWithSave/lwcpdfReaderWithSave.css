@@ -1,0 +1,12 @@
+/*style*/
+.slds-modal__content{
+    min-height: 70vh;
+
+}
+
+.wrapper iframe {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 69vh;
+}

@@ -1,0 +1,22 @@
+{
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "id": "0Ho6g0000008OenCAE",
+            "package": "LWCPDFReaderwithSave",
+            "versionName": "Winter 20",
+            "versionNumber": "1.0.1.NEXT"
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "47.0",
+    "packageAliases": {
+        "LWCPDFReaderwithSave": "0Ho6g0000008OenCAE",
+        "LWCPDFReaderwithSave@1.0.0-1": "04t6g000006xxjGAAQ",
+        "LWCPDFReaderwithSave@1.0.0-2": "04t6g000006xy8CAAQ",
+        "LWCPDFReaderwithSave@1.0.0-3": "04t6g000006y041AAA",
+        "LWCPDFReaderwithSave@1.0.1-1": "04t6g000006y046AAA"
+    }
+}
