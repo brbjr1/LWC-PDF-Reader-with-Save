@@ -108,7 +108,7 @@ Deployment instructions:
 
 4. Update the Controller (Modify line “myviewer.doOpen({'documentsaveFormulaField':'','documentsaveName':'Document.pdf','VFReportPageName':'AccountReport','modalTitle':'Account Report'});” for your report) 
   -	Configuration Options: 
-    -	documentsaveFormulaField: Used to dynamically create a document name for the saved report. The document name is queried from the record you are generating the report from. This value needs to be the field API name. An example, on the sample account report if you enter Name the saved file name will equal the accounts name with the extension .pdf or using a custom formula field would allow adding dates or oher attributues to the name. (enter a blank value to disable)
+    -	documentsaveFormulaField: Used to dynamically create a document name for the saved report. The document name is queried from the record you are generating the report from. This value needs to be the field API name. An example, on the sample account report if you enter Name the saved file name will equal the accounts name with the extension .pdf or using a custom formula field would allow adding dates or other attributues to the name. (enter a blank value to disable)
     -	documentsaveName: Enter a static name to save the document as. (enter a blank value if using documentsaveFormulaField) 
     -	VFReportPageName: Enter the name of the visualforce page that generates the pdf. 
     -	modalTitle: Enter the name that displays on the top of the preview modal. 
