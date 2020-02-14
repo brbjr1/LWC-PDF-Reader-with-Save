@@ -2,6 +2,7 @@ LWC PDF Reader with Save
 Description: This component allows you to create an action button on a Salesforce record that provides the ability to preview a PDF document with save functionality.
 
 Github: https://github.com/brbjr1/LWC-PDF-Reader-with-Save
+
 Deployment instructions:
 1.	Install package
   a.	Production: https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t6g000006xy8CAAQ 
@@ -80,7 +81,8 @@ Deployment instructions:
     </body>
 </apex:page>
 ```
-3.	Create	a Lightning Component (aura component, At the time of this writing quick actions are not possible to create in LWC). 
+3.	Create	a Lightning Component (aura component, At the time of this writing quick actions are not possible to create in LWC).
+ 
   a.	Open the Salesforce development console and click on File => New => Lightning Component
  
   b.	Enter a name (this is going to be used by our record action button)
