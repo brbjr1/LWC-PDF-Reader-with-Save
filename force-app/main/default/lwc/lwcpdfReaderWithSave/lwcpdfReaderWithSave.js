@@ -54,7 +54,7 @@ export default class LwcpdfReaderWithSave extends LightningElement {
     this.hasInitialized = true;
 
     loadStyle(this, sresource + "/custom1.css");
-    this.viewerUrl = sresource + "/web/viewer.html?saveName=Document.pdf";
+    this.viewerUrl = sresource + "/web/viewer.html?file=Document.pdf";
     if (this.showConsoleLogs) {
       console.log({
         log: "renderedCallback",
@@ -138,6 +138,7 @@ export default class LwcpdfReaderWithSave extends LightningElement {
         payload.documentsaveName !== ""
       ) {
         this.documentsaveName = payload.documentsaveName;
+        this.viewerUrl = sresource + "/web/viewer.html?file=" + this.documentsaveName;
       }
       if (
         payload.hasOwnProperty("VFReportPageName") &&
@@ -165,6 +166,7 @@ export default class LwcpdfReaderWithSave extends LightningElement {
               });
             }
             this.documentsaveName = result;
+            this.viewerUrl = sresource + "/web/viewer.html?file=" + this.documentsaveName;
             this.handleLoad2();
           })
           .catch(error => {
